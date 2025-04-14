@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import SignUpSuccessfull from "../components/SignupSuccess";
+import SignUpSuccessfull from "./SignupSuccess";
 import "../CSS/signup.css";
 
 function SignUpModal({ toggleSignupModal, switchToLogin }) {

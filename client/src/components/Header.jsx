@@ -3,8 +3,8 @@ import { useLocation } from "react-router-dom";
 import Logo from "../assets/MUJ-Unity-Fest-Logo-6 1.svg";
 import Hamburger from "../assets/burger-menu-svgrepo-com.svg";
 import Cross from "../assets/cross-svgrepo-com.svg";
-import Signin from "../pages/login";
-import Signup from "../pages/Signup";
+import Signin from "./login";
+import Signup from "./SignUp";
 import User from "../assets/user.png"
 import "../CSS/style.css"
 
