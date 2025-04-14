@@ -4,7 +4,7 @@ import Logo from "../assets/MUJ-Unity-Fest-Logo-6 1.svg";
 import Hamburger from "../assets/burger-menu-svgrepo-com.svg";
 import Cross from "../assets/cross-svgrepo-com.svg";
 import Signin from "../pages/login";
-import Signup from "../pages/signup";
+import Signup from "../pages/Signup";
 import User from "../assets/user.png"
 import "../CSS/style.css"
 
