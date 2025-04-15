@@ -2,14 +2,13 @@
 import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import "../CSS/style.css";
+import "../style.css";
 import decorDesign from "../assets/decor-design.png";
 import topImg1 from "../assets/top-img-1.svg";
 import topImg2 from "../assets/top-img-2.svg";
 import authorImg1 from "../assets/author-img-1.svg";
 import arrowRight from "../assets/arrow_right_alt.svg";
 import TeamMembers from "../components/TeamMembers";
-import "../CSS/teammember.css"
 
 const AboutUs = () => {
   useEffect(() => {

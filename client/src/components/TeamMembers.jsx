@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from "react";
 import { FaLinkedin } from "react-icons/fa";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import "../CSS/teammember.css";
 
 const teamMembers = [
   {

@@ -2,8 +2,6 @@ import React, { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import "../CSS/competition.css";
-import { FaLinkedin } from "react-icons/fa";
 
 // Assets
 import treasureHunt from "../assets/treasure-hunt.svg";

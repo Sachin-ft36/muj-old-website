@@ -1,5 +1,4 @@
 import React from 'react';
-import '../CSS/treasure_hunt.css';
 import gameImage from '../assets/lame-jokes.svg';
 import Team from "./TeamMembers";
 import GameLayout from './Gamelayout';

@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import "./style.css"
 
 import { Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";

@@ -1,6 +1,4 @@
 import React from "react";
-import "../CSS/signup.css"; // For modal background/layout
-import "../CSS/SignupSuccess.css"; // Custom thank-you styles
 import CheckIcon from "./Checkicon";
 
 function SignUpSuccessfull() {
