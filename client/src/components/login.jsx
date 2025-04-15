@@ -1,15 +1,53 @@
-import React from "react";
-import "../CSS/LoginModal.css"; // 👈 External styles
+import React, { useState } from "react";
+import "../CSS/LoginModal.css";
 
-function LoginModal({ toggleLoginModal, switchToSignup, onLoginSuccess }) {
+// Reusable Input component
+const InputField = ({ type, placeholder, value, onChange, ariaLabel }) => (
+  <div className="modal-input-wrapper">
+    <input
+      type={type}
+      placeholder={placeholder}
+      value={value}
+      onChange={onChange}
+      className="modal-input"
+      aria-label={ariaLabel}
+      required
+    />
+  </div>
+);
+
+const Checkbox = ({ id, label, checked, onChange }) => (
+  <div className="modal-remember">
+    <input
+      type="checkbox"
+      id={id}
+      className="modal-checkbox"
+      checked={checked}
+      onChange={onChange}
+    />
+    <label htmlFor={id}>{label}</label>
+  </div>
+);
+
+const LoginModal = ({ toggleLoginModal, switchToSignup, onLoginSuccess }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
+
+  // Handle login form submission
   const handleLogin = (e) => {
     e.preventDefault();
 
-    // 🔐 Here you can add your real login API logic
-    // For now, assume login is successful
-    onLoginSuccess();            // 👈 Update parent to show "Profile"
-    toggleLoginModal(false);     // 👈 Close the modal
+    // Simulate API call for login
+    onLoginSuccess();
+    toggleLoginModal(false); // Close modal on success
   };
+
+  // Handle input change for email and password
+  const handleInputChange = (e, setter) => setter(e.target.value);
+
+  // Handle "Remember Me" checkbox change
+  const handleCheckboxChange = () => setRememberMe(!rememberMe);
 
   return (
     <div
@@ -46,36 +84,29 @@ function LoginModal({ toggleLoginModal, switchToSignup, onLoginSuccess }) {
         </p>
 
         <form className="modal-form" onSubmit={handleLogin}>
-          <div className="modal-input-wrapper">
-            <input
-              type="text"
-              placeholder="Your email or phone number"
-              className="modal-input"
-              aria-label="Email or phone number"
-              required
-            />
-          </div>
+          <InputField
+            type="text"
+            placeholder="Your email or phone number"
+            value={email}
+            onChange={(e) => handleInputChange(e, setEmail)}
+            ariaLabel="Email or phone number"
+          />
 
-          <div className="modal-input-wrapper">
-            <input
-              type="password"
-              placeholder="Password"
-              className="modal-input"
-              aria-label="Password"
-              required
-            />
-          </div>
+          <InputField
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => handleInputChange(e, setPassword)}
+            ariaLabel="Password"
+          />
 
           <div className="modal-options">
-            <div className="modal-remember">
-              <input
-                type="checkbox"
-                id="remember"
-                className="modal-checkbox"
-              />
-              <label htmlFor="remember">Remember me</label>
-            </div>
-
+            <Checkbox
+              id="remember"
+              label="Remember me"
+              checked={rememberMe}
+              onChange={handleCheckboxChange}
+            />
             <button type="button" className="modal-forgot">
               Forgot password?
             </button>
@@ -88,6 +119,6 @@ function LoginModal({ toggleLoginModal, switchToSignup, onLoginSuccess }) {
       </div>
     </div>
   );
-}
+};
 
 export default LoginModal;

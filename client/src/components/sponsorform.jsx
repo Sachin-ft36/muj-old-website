@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../CSS/sponsorform.css";
-import ThankYouPage from "../components/ThankYouMessage";
+import ThankYouPage from "./ThankYouMessage";
 
 function SponsorModal({ onClose }) {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -12,7 +12,7 @@ function SponsorModal({ onClose }) {
 
   const handleClose = () => {
     setIsSubmitted(false);
-    onClose(); // closes the modal from parent
+    onClose(); 
   };
 
   if (isSubmitted) {

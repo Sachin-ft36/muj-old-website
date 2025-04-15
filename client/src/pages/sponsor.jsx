@@ -4,7 +4,7 @@ import "../CSS/sponsor.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import decorDesigns from "../assets/decor-design.png";
-import SponsorModal from "../components/sponsorform"; // Make sure path is correct
+import SponsorModal from "../components/sponsorform";
 
 // Reusable Button
 function SponsorButton({ children, className = "", ...props }) {
@@ -27,11 +27,11 @@ function Sponsor() {
   }, []);
 
   const handleSponsorClick = () => {
-    setIsModalOpen(true); // Open modal
+    setIsModalOpen(true); 
   };
 
   const handleCloseModal = () => {
-    setIsModalOpen(false); // Close modal
+    setIsModalOpen(false); 
   };
 
   return (

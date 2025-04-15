@@ -9,12 +9,12 @@ import Competition from "./pages/competition"
 import Aboutus from "./pages/Aboutus";
 import Sponsor  from "./pages/sponsor";
 import Contact from "./pages/Contact";
-import TreasureHunt from "./games/treasure_hunt";
-import Quiz from "./games/Quiz";
-import LameJokes from "./games/Lamejokes";
-import SpeedTyping  from "./games/typingspeed";
-import Pubg from "./games/pubg";
-import CodingChallenge from "./games/coding";
+import TreasureHunt from "./components/treasure_hunt";
+import Quiz from "./components/Quiz";
+import LameJokes from "./components/Lamejokes";
+import SpeedTyping  from "./components/typingspeed";
+import Pubg from "./components/pubg";
+import CodingChallenge from "./components/coding";
 
 
 

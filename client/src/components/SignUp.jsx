@@ -2,6 +2,21 @@ import React, { useState, useEffect } from "react";
 import SignUpSuccessfull from "./SignupSuccess";
 import "../CSS/signup.css";
 
+const validationPatterns = {
+  firstName: /^[A-Za-z]+$/,
+  email: /@mujonline\.edu\.in$/,
+  otp: /^\d{6}$/,
+  password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/,
+};
+
+const errorMessages = {
+  firstName: "Only alphabets allowed.",
+  email: "Email must end with @mujonline.edu.in",
+  otp: "OTP must be exactly 6 digits.",
+  password: "Password must contain 8+ characters, 1 uppercase, 1 lowercase, 1 number, 1 special character.",
+  confirmPassword: "Passwords do not match.",
+};
+
 function SignUpModal({ toggleSignupModal, switchToLogin }) {
   const [showSuccess, setShowSuccess] = useState(false);
   const [formData, setFormData] = useState({
@@ -14,108 +29,64 @@ function SignUpModal({ toggleSignupModal, switchToLogin }) {
     course: "",
     batch: "",
   });
-
   const [errors, setErrors] = useState({});
   const [otpTimer, setOtpTimer] = useState(0);
   const [timerInterval, setTimerInterval] = useState(null);
 
-  const validateFirstName = (value) => /^[A-Za-z]+$/.test(value);
-  const validateEmail = (value) => value.endsWith("@mujonline.edu.in");
-  const validateOTP = (value) => /^\d{6}$/.test(value);
-  const validatePassword = (value) =>
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/.test(value);
-
   useEffect(() => {
     if (otpTimer > 0) {
-      const interval = setInterval(() => {
-        setOtpTimer((prev) => prev - 1);
-      }, 1000);
+      const interval = setInterval(() => setOtpTimer((prev) => prev - 1), 1000);
       setTimerInterval(interval);
       return () => clearInterval(interval);
-    } else {
-      clearInterval(timerInterval);
     }
+    return () => clearInterval(timerInterval);
   }, [otpTimer]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
 
-    const newErrors = { ...errors };
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: validateField(name, value),
+    }));
+  };
 
-    if (name === "firstName") {
-      newErrors.firstName = validateFirstName(value)
-        ? ""
-        : "Only alphabets allowed.";
+  const validateField = (field, value) => {
+    switch (field) {
+      case "firstName":
+        return validationPatterns.firstName.test(value)
+          ? ""
+          : errorMessages.firstName;
+      case "email":
+        return validationPatterns.email.test(value)
+          ? ""
+          : errorMessages.email;
+      case "otp":
+        return validationPatterns.otp.test(value) ? "" : errorMessages.otp;
+      case "password":
+        return validationPatterns.password.test(value)
+          ? ""
+          : errorMessages.password;
+      case "confirmPassword":
+        return value === formData.password
+          ? ""
+          : errorMessages.confirmPassword;
+      default:
+        return "";
     }
-
-    if (name === "email") {
-      newErrors.email = validateEmail(value)
-        ? ""
-        : "Email must end with @mujonline.edu.in";
-    }
-
-    if (name === "otp") {
-      newErrors.otp = validateOTP(value) ? "" : "OTP must be exactly 6 digits.";
-    }
-
-    if (name === "password") {
-      newErrors.password = validatePassword(value)
-        ? ""
-        : "Password must contain 8+ characters, 1 uppercase, 1 lowercase, 1 number, 1 special character.";
-    }
-
-    if (name === "confirmPassword") {
-      newErrors.confirmPassword =
-        value === formData.password ? "" : "Passwords do not match.";
-    }
-
-    setErrors(newErrors);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const validationResults = Object.keys(formData).reduce((acc, key) => {
+      acc[key] = validateField(key, formData[key]);
+      return acc;
+    }, {});
 
-    const validations = {
-      firstName: validateFirstName(formData.firstName),
-      email: validateEmail(formData.email),
-      otp: validateOTP(formData.otp),
-      password: validatePassword(formData.password),
-      confirmPassword: formData.confirmPassword === formData.password,
-    };
+    setErrors(validationResults);
 
-    const newErrors = {};
-
-    Object.entries(validations).forEach(([key, valid]) => {
-      if (!valid) {
-        switch (key) {
-          case "firstName":
-            newErrors[key] = "Only alphabets allowed.";
-            break;
-          case "email":
-            newErrors[key] = "Email must end with @mujonline.edu.in";
-            break;
-          case "otp":
-            newErrors[key] = "OTP must be exactly 6 digits.";
-            break;
-          case "password":
-            newErrors[key] =
-              "Password must contain 8+ characters, 1 uppercase, 1 lowercase, 1 number, 1 special character.";
-            break;
-          case "confirmPassword":
-            newErrors[key] = "Passwords do not match.";
-            break;
-          default:
-            break;
-        }
-      }
-    });
-
-    setErrors(newErrors);
-
-    const allValid = Object.keys(newErrors).length === 0;
-
-    if (allValid) {
+    if (Object.values(validationResults).every((msg) => !msg)) {
       setShowSuccess(true);
     }
   };
@@ -129,7 +100,6 @@ function SignUpModal({ toggleSignupModal, switchToLogin }) {
   const handleGetOtp = () => {
     if (otpTimer === 0) {
       setOtpTimer(90); // 1 minute 30 seconds = 90 seconds
-      // You can add your API call to send OTP here
     }
   };
 
@@ -177,8 +147,17 @@ function SignUpModal({ toggleSignupModal, switchToLogin }) {
           {errors.firstName && <p className="error-message">{errors.firstName}</p>}
 
           <div className="form-row">
-            <input type="tel" placeholder="Phone number*" className="form-input" required />
-            <input type="tel" placeholder="Alternate phone number" className="form-input" />
+            <input
+              type="tel"
+              placeholder="Phone number*"
+              className="form-input"
+              required
+            />
+            <input
+              type="tel"
+              placeholder="Alternate phone number"
+              className="form-input"
+            />
           </div>
 
           <div className="form-row">
@@ -238,15 +217,9 @@ function SignUpModal({ toggleSignupModal, switchToLogin }) {
               required
             >
               <option value="">Select Batch*</option>
-              <option value="Batch1">Batch 1</option>
-              <option value="Batch2">Batch 2</option>
-              <option value="Batch3">Batch 3</option>
-              <option value="Batch4">Batch 4</option>
-              <option value="Batch5">Batch 5</option>
-              <option value="Batch6">Batch 6</option>
-              <option value="Batch7">Batch 7</option>
-              <option value="Batch8">Batch 8</option>
-              <option value="Batch9">Batch 9</option>
+              {Array.from({ length: 9 }, (_, i) => (
+                <option key={i} value={`Batch${i + 1}`}>{`Batch ${i + 1}`}</option>
+              ))}
             </select>
           </div>
 
@@ -299,8 +272,6 @@ function SignUpModal({ toggleSignupModal, switchToLogin }) {
               </a>.
             </label>
           </div>
-
-
 
           <button type="submit" className="modal-submit">Sign up</button>
         </form>

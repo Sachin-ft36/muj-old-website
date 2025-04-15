@@ -1,26 +1,31 @@
 import { Link } from "react-router-dom";
 import "../CSS/style.css";
-import logo from "../assets/MUJ-Unity-Fest-Logo-6 1.svg"; // ✅ Import logo
-import instagramIcon from "../assets/instagram-icon.svg"; // ✅ Import Instagram icon
-import whatsappIcon from "../assets/icon _whatsapp.svg"; // ✅ Import WhatsApp icon
-import GoToTop from "../components/GoToTop"; // ✅ Correct import
+import logo from "../assets/MUJ-Unity-Fest-Logo-6 1.svg";
+import instagramIcon from "../assets/instagram-icon.svg";
+import whatsappIcon from "../assets/icon _whatsapp.svg"; 
+import GoToTop from "./GoToTop";
+
+// Social Icon Component for Reusability
+const SocialIcon = ({ href, iconSrc, altText }) => (
+  <a href={href} className="social-icon" target="_blank" rel="noopener noreferrer">
+    <img src={iconSrc} alt={altText} />
+  </a>
+);
 
 const Footer = () => {
   return (
     <footer className="unity-fest-footer">
       <div className="container">
         <div className="footer-content">
+          {/* Footer Logo Section */}
           <div className="footer-logo-section">
-            <img 
-              src={logo} 
-              alt="MUJ Unity Fest Logo" 
-              className="footer-logo" 
-            />
+            <img src={logo} alt="MUJ Unity Fest Logo" className="footer-logo" />
             <p className="footer-tagline">
               Uniting Students, Building Connections, Creating Lasting Memories Together
             </p>
           </div>
 
+          {/* Footer Navigation Links */}
           <div className="footer-nav">
             <ul>
               <li><Link to="/home">Home</Link></li>
@@ -31,26 +36,22 @@ const Footer = () => {
             </ul>
           </div>
 
+          {/* Footer Social Media Icons */}
           <div className="social-icons">
-            <a 
-              href="https://www.instagram.com/muj_unity_fest/" 
-              className="social-icon" 
-              target="_blank" 
-              rel="noopener noreferrer"
-            >
-              <img src={instagramIcon} alt="Instagram" />
-            </a>
-            <a 
-              href="https://wa.me/919761914738" 
-              className="social-icon" 
-              target="_blank" 
-              rel="noopener noreferrer"
-            >
-              <img src={whatsappIcon} alt="WhatsApp" />
-            </a>
+            <SocialIcon
+              href="https://www.instagram.com/muj_unity_fest/"
+              iconSrc={instagramIcon}
+              altText="Instagram"
+            />
+            <SocialIcon
+              href="https://wa.me/919761914738"
+              iconSrc={whatsappIcon}
+              altText="WhatsApp"
+            />
           </div>
         </div>
 
+        {/* Footer Bottom Section */}
         <div className="footer-bottom">
           <p>&copy; 2025 MUJ Unity Fest. All rights reserved.</p>
           <div className="footer-links">
@@ -63,7 +64,7 @@ const Footer = () => {
         </div>
       </div>
 
-    
+      {/* Scroll To Top Button */}
       <GoToTop />
     </footer>
   );
