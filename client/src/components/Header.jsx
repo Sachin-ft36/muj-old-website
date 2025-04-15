@@ -6,7 +6,7 @@ import Cross from "../assets/cross-svgrepo-com.svg";
 import Signin from "./login";
 import Signup from "./SignUp";
 import User from "../assets/user.png"
-import "../CSS/style.css"
+import "../style.css"
 
 
 const Header = () => {
@@ -102,7 +102,7 @@ const Header = () => {
         <Signin
           toggleLoginModal={toggleLoginModal}
           switchToSignup={switchToSignup}
-          onLoginSuccess={handleLoginSuccess} // 👈 Pass handler here
+          onLoginSuccess={handleLoginSuccess} 
         />
       )}
 

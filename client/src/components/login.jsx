@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "../CSS/LoginModal.css";
 
 // Reusable Input component
 const InputField = ({ type, placeholder, value, onChange, ariaLabel }) => (

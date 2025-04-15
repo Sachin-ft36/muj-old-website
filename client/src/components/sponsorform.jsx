@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../CSS/sponsorform.css";
+
 import ThankYouPage from "./ThankYouMessage";
 
 function SponsorModal({ onClose }) {

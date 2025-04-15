@@ -1,20 +1,15 @@
-// src/components/GameLayout.jsx
 import React from 'react';
-import '../CSS/treasure_hunt.css';
 import Team from '../components/TeamMembers';
 
 const GameLayout = ({ title, tagline, image, aboutText, howToPlay, rules }) => {
   return (
     <main>
-      {/* Game Header */}
       <section className="game-header">
         <div className="container">
           <h1>{title}</h1>
           <p>{tagline}</p>
         </div>
       </section>
-
-      {/* Game Details */}
       <section className="game-details">
         <div className="container game-details-container">
           <div className="game-image">
@@ -30,7 +25,6 @@ const GameLayout = ({ title, tagline, image, aboutText, howToPlay, rules }) => {
         </div>
       </section>
 
-      {/* Game Instructions */}
       <section className="game-instructions">
         <div className="container instructions-container">
           <div className="instructions-header">
@@ -58,7 +52,6 @@ const GameLayout = ({ title, tagline, image, aboutText, howToPlay, rules }) => {
         </div>
       </section>
 
-      {/* Team Section */}
       <Team />
     </main>
   );

@@ -1,6 +1,4 @@
-"use client";
 import React, { useEffect, useState } from "react";
-import "../CSS/sponsor.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import decorDesigns from "../assets/decor-design.png";

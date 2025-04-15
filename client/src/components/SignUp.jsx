@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import SignUpSuccessfull from "./SignupSuccess";
-import "../CSS/signup.css";
 
 const validationPatterns = {
   firstName: /^[A-Za-z]+$/,
